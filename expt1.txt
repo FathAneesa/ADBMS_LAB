@@ -1,0 +1,70 @@
+1)Create a table EMPLOYEE have the following fields (emp_id, name,city,dob,adhar_no)
+ 
+ ans) create table EMPLOYEE(emp_id int,name varchar(10),city varchar(10),dob date,adhar_no int);
+ 
+
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_id   | int         | YES  |     | NULL    |       |
+| name     | varchar(10) | YES  |     | NULL    |       |
+| city     | varchar(10) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| adhar_no | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+
+2)Create a table STUDENT have the fields(roll_no, name, age, address, gender)and add following constraints on it.
+
+         Roll_no – Primary key
+
+         Name – does not allow null values
+
+         Age- must be in between (0-99), does not allow null values
+
+         Gender- default value is ‘m’
+         
+         
+ans)  create table STUDENT1(roll_no int primary key,name varchar(10) not null,age int check(age between 0 and 99),address varchar(10),gender varchar(10) default 'm');
+  
+  +---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   | PRI | NULL    |       |
+| name    | varchar(10) | NO   |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| address | varchar(10) | YES  |     | NULL    |       |
+| gender  | varchar(10) | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+
+
+3)Create a temporary table STUDENT1 of STUDENT relation.
+
+ans)create temporary table STUDENT2 as select * from STUDENT1;
+
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   |     | NULL    | NULL  |
+| name    | varchar(10) | NO   |     | NULL    | NULL  |
+| age     | int         | YES  |     | NULL    | NULL  |
+| address | varchar(10) | YES  |     | NULL    | NULL  |
+| gender  | varchar(10) | YES  |     | m       | NULL  |
++---------+-------------+------+-----+---------+-------+
+
+
+
+4)Create a duplicate table of EMPLOYEE.
+
+ans)create table EMPLOYEE1 as select * from EMPLOYEE;
+
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_id   | int         | YES  |     | NULL    |       |
+| name     | varchar(10) | YES  |     | NULL    |       |
+| city     | varchar(10) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| adhar_no | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
