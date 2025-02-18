@@ -68,3 +68,4 @@ ans)create table EMPLOYEE1 as select * from EMPLOYEE;
 | adhar_no | int         | YES  |     | NULL    |       |
 +----------+-------------+------+-----+---------+-------+
 
+//VERIFIED
