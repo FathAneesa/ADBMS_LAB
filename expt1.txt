@@ -76,7 +76,7 @@ ans)create table EMPLOYEE1 as select * from EMPLOYEE;
 
                       Invoice_master(inv_id, cust_id(FK), inv_date)
 
-                      Invoice_item(inv_id (FK),  pid(FK), quantity)
+                      Invoice_item(inv_id (FK),  pid(FK), quantity).
 ans)Query:
     create database INVOICE;
     use INVOICE;
