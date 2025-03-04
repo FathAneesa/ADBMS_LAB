@@ -66,6 +66,87 @@ ans)create table EMPLOYEE1 as select * from EMPLOYEE;
 | city     | varchar(10) | YES  |     | NULL    |       |
 | dob      | date        | YES  |     | NULL    |       |
 | adhar_no | int         | YES  |     | NULL    |       |
-+----------+-------------+------+-----+---------+-------+
++----------+-------------+------+-----+---------+-------
+
+5)Create an INVOICE database and having following tables.
+
+                      Customer(id, name, address, city, ph_no)
+
+                      Product(pid,  pname, price (default 0))
+
+                      Invoice_master(inv_id, cust_id(FK), inv_date)
+
+                      Invoice_item(inv_id (FK),  pid(FK), quantity)
+ans)Query:
+    create database INVOICE;
+    use INVOICE;
+    create table Customer(id int primary key,name varchar(20),address varchar(20),city varchar(20),ph_no int);
+    desc Customer;
+    +---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
+| city    | varchar(20) | YES  |     | NULL    |       |
+| ph_no   | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+    create table Product(pid int primary key,name varchar(20),price int default 0);
+    desc Product;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| pid   | int         | NO   | PRI | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| price | int         | YES  |     | 0       |       |
++-------+-------------+------+-----+---------+-------+
+
+   create table Invoice_master(inv_id int primary key,cust_id int,inv_date date,foreign key(cust_id) references Customer(id));
+desc Invoice_master;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| inv_id   | int  | NO   | PRI | NULL    |       |
+| cust_id  | int  | YES  | MUL | NULL    |       |
+| inv_date | date | YES  |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+
+create table Invoice_item(inv_id int,pid int,quantity int not null,foreign key (inv_id) references Invoice_master(inv_id),foreign key(pid) references Product(pid));
+desc Invoice_item;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| inv_id   | int  | YES  | MUL | NULL    |       |
+| pid      | int  | YES  | MUL | NULL    |       |
+| quantity | int  | NO   |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+
+b)DDL-ALTER & DROP
+
+1. Add a column ‘SSN’ at the first position in the table EMPLOYEE 
+ans)alter table EMPLOYEE add column SSN varchar(10) first;
+    Query OK, 0 rows affected (1.81 sec)
+2. Change the data type of the column ‘DOB’  in year the table EMPLOYEE  
+ans)alter table EMPLOYEE modify column dob year;
+    Query OK, 0 rows affected (2.43 sec)
+3. Delete the column ‘emp_id’ the table EMPLOYEE. 
+ans)alter table EMPLOYEE drop column emp_id;
+    Query OK, 0 rows affected (1.82 sec)
+4. Add  the constraint unique for columns ‘SSN, ‘adhar_no’ the table EMPLOYEE
+ans)alter table EMPLOYEE add constraint unique_SSN_adhar unique(SSN,adhar_no);
+    Query OK, 0 rows affected (0.34 sec)
+5. Delete the NULL constraint of ‘age’ in the STUDENT table.
+ans)alter table STUDENT1 modify column age int;
+    Query OK, 0 rows affected (0.25 sec)
+6. Change the table name EMPLOYEE as PERSON
+ans)Rename table EMPLOYEE to PERSON;
+    Query OK, 0 rows affected (0.49 sec)
+7. Delete the table STUDENT1.
+ans)DROP TABLE STUDENT1;
+    Query OK, 0 rows affected (0.43 sec)
+
+
+
 
 //VERIFIED
