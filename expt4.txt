@@ -1,0 +1,143 @@
+a) ACCESSING DATABASE:  (SELECT, Filtering using WHERE, ORDER BY Clauses)
+
+1.List all invoice items, avoid duplicates. 
+
+ans)
+    select distinct quantity from Invoice_item;
++----------+
+| quantity |
++----------+
+|        5 |
+|        1 |
+|       10 |
+|        2 |
++----------+
+4 rows in set (0.03 sec)
+
+2.List the invoice details from 1st January 2024 to 31st march 2024
+
+ans)
+    select *from Invoice_master where inv_date>='2024-01-01' and inv_date<='2024-03-31';
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    105 |   10004 | 2024-02-10 |
++--------+---------+------------+
+1 row in set (0.00 sec)
+
+3.List the customer details who not live in ‘tvm’. 
+    
+ans)
+    select * from Customer where city!='kochi';
++-------+-------+---------+----------+-------+
+| id    | name  | address | city     | ph_no |
++-------+-------+---------+----------+-------+
+| 10001 | ani   | ani_a   | calicut  |  1234 |
+| 10002 | rashi | rashi_r | kondotty |  2345 |
+| 10004 | ash   | ash_a   | calicut  |  4567 |
+| 10005 | shud  | shud_s  | chennai  |  NULL |
++-------+-------+---------+----------+-------+
+4 rows in set (0.01 sec)
+
+4.List the customers who have no phone number. 
+
+ans)
+    select * from Customer where ph_no is NULL;
++-------+------+---------+---------+-------+
+| id    | name | address | city    | ph_no |
++-------+------+---------+---------+-------+
+| 10005 | shud | shud_s  | chennai |  NULL |
++-------+------+---------+---------+-------+
+
+5.Display customer names in descending order. 
+
+ans)
+    select name from Customer order by name desc;
++-------+
+| name  |
++-------+
+| shud  |
+| rashi |
+| ash   |
+| ani   |
+| aami  |
++-------+
+5 rows in set (0.00 sec)
+
+
+6.Display the customer details sorted in ascending by city and descending by names. 
+
+ans)
+    select city  from Customer order by city asc, name desc;
++----------+
+| city     |
++----------+
+| calicut  |
+| calicut  |
+| chennai  |
+| kochi    |
+| kondotty |
++----------+
+
+7.Find the customer names who have ‘e’ or ‘a’ in them and at least 3 characters in length
+
+ans)
+    select name from Customer where(name like '%a%' or name like '%e%')and name like '___%';
++-------+
+| name  |
++-------+
+| ani   |
+| rashi |
+| aami  |
+| ash   |
++-------+
+4 rows in set (0.01 sec)
+
+8.List the names of customers their names have ‘a’ in second position.
+
+ans)
+    select name from Customer where name like '_a%';
++-------+
+| name  |
++-------+
+| rashi |
+| aami  |
++-------+
+2 rows in set (0.00 sec)
+
+
+    
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
