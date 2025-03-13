@@ -181,7 +181,7 @@ ans)
 | GRANT USAGE ON *.* TO `user2`@`localhost`          |
 | GRANT UPDATE ON `INVOICE`.* TO `user2`@`localhost` |
 +----------------------------------------------------+
-
+//VERIFIED
    
 
 
