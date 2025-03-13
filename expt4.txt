@@ -106,6 +106,78 @@ ans)
 2 rows in set (0.00 sec)
 
 
+b)OPTIMIZING DATABASE:(GROUP BY, AGGREGATE FUNCTIONS)       
+
+1.List product name, price except soap on price order. 
+
+ans)
+    select name,price from Product where name!='soap';
++--------+-------+
+| name   | price |
++--------+-------+
+| pen    |    10 |
+| pencil |    20 |
+| eraser |    15 |
++--------+-------+
+3 rows in set (0.00 sec)
+
+2.Find minimum, maximum and average price of products. 
+
+ans)
+    select min(price) as MINPRICE,max(price)as MAXPRICE,avg(price) as AVGPRICE from Product;
++----------+----------+----------+
+| MINPRICE | MAXPRICE | AVGPRICE |
++----------+----------+----------+
+|       10 |       30 |  18.7500 |
++----------+----------+----------+
+1 row in set (0.00 sec)
+
+3.Find number of customers in each city.
+
+ans)
+     select city, count(*) from Customer group by city;
++----------+----------+
+| city     | count(*) |
++----------+----------+
+| calicut  |        2 |
+| kondotty |        1 |
+| kochi    |        1 |
+| chennai  |        1 |
++----------+----------+
+4 rows in set (0.00 sec)
+
+
+4.Find number of customers in each city, only include city with more than 3 customers.
+
+ans)
+    select city,count(*) from Customer group by city having count(*)>1;
++---------+----------+
+| city    | count(*) |
++---------+----------+
+| calicut |        2 |
++---------+----------+
+1 row in set (0.00 sec)
+
+
+5.Show data as displayed ‘who, where’ Eg: ‘customer1 lives in ekm’
+
+ans)
+    select concat ( name , ' lives in ' , city)as who_where from Customer;
++-------------------------+
+| who_where               |
++-------------------------+
+| ani lives in calicut    |
+| rashi lives in kondotty |
+| aami lives in kochi     |
+| ash lives in calicut    |
+| shud lives in chennai   |
++-------------------------+
+5 rows in set (0.00 sec)
+
+
+
+
+
     
        
 
