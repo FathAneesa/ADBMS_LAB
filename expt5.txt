@@ -17,6 +17,75 @@ ans)
 2.List the product names, only include their purchased quantity more than 3. 
 
 ans)
+    select name from Product where pid in(select pid from Invoice_item where quantity>3);
++--------+
+| name   |
++--------+
+| pencil |
+| soap   |
++--------+
+2 rows in set (0.01 sec)
+
+
+3.Find the product that has no sale.  
+
+ans)
+    select name from Product where pid not in(select pid from Invoice_item);
++--------+
+| name   |
++--------+
+| eraser |
++--------+
+1 row in set (0.02 sec)
+
+
+4.List the customer names who purchased the items ‘pen’ and ‘pencil’.   
+
+ans)
+    select name from Customer where id in(select cust_id from Invoice_master
+where inv_id in(select inv_id from Invoice_item where pid in(select pid from Product where name='pen' or name= 'pencil')));
++-------+
+| name  |
++-------+
+| rashi |
+| ash   |
++-------+
+2 rows in set (0.00 sec)
+
+
+5.Display the purchased product details of the customer ’xyz’. 
+
+ans)
+    select * from Product where pid in(select pid from Invoice_item where inv_id in(select inv_id from Invoice_master where  cust_id in(select id from Customer where name='ash')));
++-----+------+-------+
+| pid | name | price |
++-----+------+-------+
+|   1 | pen  |    10 |
+|   3 | soap |    30 |
++-----+------+-------+
+2 rows in set (0.01 sec)
+
+6.List the names of all customers who have purchased at least 2 products, make sure that no duplicate names in the result.
+
+ans)
+    select name from Customer where id in(select cust_id from Invoice_master
+where inv_id in(select inv_id from Invoice_item group by inv_id having count(inv_id)>=2));
++-------+
+| name  |
++-------+
+| rashi |
++-------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
     
 
 
