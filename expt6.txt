@@ -33,7 +33,7 @@ mysql> select * from no_sale;
 
 
 
-
+//VERIFIED
 
 
 
