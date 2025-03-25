@@ -1,0 +1,63 @@
+OPTIMIZING DATABASE:(JOINS)
+
+1.List the product name and quantity of invoice items.
+
+ans)
+    select Product.name,Invoice_item.quantity from Product inner join Invoice_item on Product.pid=Invoice_item.pid;
++--------+----------+
+| name   | quantity |
++--------+----------+
+| pen    |        1 |
+| pencil |        5 |
+| pencil |        2 |
+| soap   |       10 |
+| soap   |        2 |
++--------+----------+
+5 rows in set (0.00 sec)
+
+
+2.Display invoice details of the transaction dated ’31-01-2022’. 
+
+ans)
+    SELECT Invoice_master.inv_date, Customer.name, Product.name, Invoice_item.quantity   FROM Invoice_master   JOIN Customer ON Invoice_master.cust_id = Customer.id   JOIN Invoice_item ON Invoice_master.inv_id = Invoice_item.inv_id   JOIN Product ON Invoice_item.pid = Product.pid   WHERE Invoice_master.inv_date = '2023-03-01';
++------------+-------+--------+----------+
+| inv_date   | name  | name   | quantity |
++------------+-------+--------+----------+
+| 2023-03-01 | rashi | pencil |        5 |
+| 2023-03-01 | rashi | pencil |        2 |
++------------+-------+--------+----------+
+2 rows in set (0.00 sec)
+
+
+3.Display the customer name, product name, invoice date of purchased item ‘pen’. 
+
+ans)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
