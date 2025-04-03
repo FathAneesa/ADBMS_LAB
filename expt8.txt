@@ -1,0 +1,173 @@
+PL/SQL - STORED PROCEDURES
+
+1.Create a procedure to display all tables in the invoice database. 
+
+ans)
+    mysql> delimiter //
+mysql> show databases //
++--------------------+
+| Database           |
++--------------------+
+| BOOKREVIEW         |
+| CompanyDB          |
+| INVOICE            |
+| aneesa             |
+| exam               |
+| information_schema |
+| invoice            |
+| ksb                |
+| ksb1               |
+| mysql              |
+| performance_schema |
+| sys                |
+| tonydb             |
++--------------------+
+13 rows in set (0.00 sec)
+
+mysql> use INVOICE
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables
+    -> //
++-------------------+
+| Tables_in_INVOICE |
++-------------------+
+| C                 |
+| C1                |
+| Customer          |
+| Customer_details  |
+| Invoice_item      |
+| Invoice_master    |
+| Product           |
+| no_sale           |
++-------------------+
+8 rows in set (0.00 sec)
+
+mysql> create PROCEDURE alldata()
+    -> begin
+    -> select * from Customer;
+    -> select * from Product;
+    -> select * from Invoice_item;
+    -> select * from Invoice_master;
+    -> end //
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> call alldata //
++-------+-------+---------+----------+-------+
+| id    | name  | address | city     | ph_no |
++-------+-------+---------+----------+-------+
+| 10001 | ani   | ani_a   | calicut  |  1234 |
+| 10002 | rashi | rashi_r | kondotty |  2345 |
+| 10003 | aami  | aami_a  | kochi    |  3456 |
+| 10004 | ash   | ash_a   | calicut  |  4567 |
+| 10005 | shud  | shud_s  | chennai  |  NULL |
++-------+-------+---------+----------+-------+
+5 rows in set (0.03 sec)
+
++-----+--------+-------+
+| pid | name   | price |
++-----+--------+-------+
+|   1 | pen    |    10 |
+|   2 | pencil |    20 |
+|   3 | soap   |    30 |
+|   4 | eraser |    15 |
++-----+--------+-------+
+4 rows in set (0.04 sec)
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    2 |        5 |
+|    102 |    1 |        1 |
+|    104 |    3 |       10 |
+|    101 |    2 |        2 |
+|    105 |    3 |        2 |
++--------+------+----------+
+5 rows in set (0.05 sec)
+
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10002 | 2023-03-01 |
+|    102 |   10004 | 2023-10-15 |
+|    103 |   10003 | 2023-02-12 |
+|    104 |   10005 | 2024-12-23 |
+|    105 |   10004 | 2024-02-10 |
++--------+---------+------------+
+5 rows in set (0.07 sec)
+
+Query OK, 0 rows affected (0.07 sec)
+
+2.Create a procedure to find greatest of 2 numbers.
+
+ans)
+    mysql> create procedure greatest(a int, b int)
+    -> begin
+    -> declare x,y int;
+    -> set x=a;
+    -> set y=b;
+    -> if x>y then
+    -> select x as 'greater';
+    -> else
+    -> select y as 'greater';
+    -> end if;
+    -> end //
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> call greatest(24,57) //
++---------+
+| greater |
++---------+
+|      57 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+3.Create a procedure to display invoice details of a particular customer.
+
+ans)
+    mysql> create procedure inv_details (N varchar(20))
+    -> begin
+    -> select Customer.name , Invoice_master.inv_id , Invoice_master.inv_date , Product.name , Invoice_item.pid , Invoice_item.quantity from Invoice_item join Invoice_master on Invoice_master.inv_id = Invoice_item.inv_id join Product on Product.pid = Invoice_item.pid join Customer on Customer.id = Invoice_master.cust_id where Customer.name = N;
+    -> end //
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> call inv_details('ash') //
++------+--------+------------+------+------+----------+
+| name | inv_id | inv_date   | name | pid  | quantity |
++------+--------+------------+------+------+----------+
+| ash  |    102 | 2023-10-15 | pen  |    1 |        1 |
+| ash  |    105 | 2024-02-10 | soap |    3 |        2 |
++------+--------+------------+------+------+----------+
+2 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
