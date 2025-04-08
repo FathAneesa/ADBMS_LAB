@@ -27,7 +27,7 @@ SELECT name, price, minmax(price) AS price_range FROM Product;
 4 rows in set (0.02 sec)
 
 
-
+//VERIFIED
 
 
 
