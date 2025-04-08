@@ -48,7 +48,9 @@ mysql> select * from Departments;
 +--------+----------+----------+
 3 rows in set (0.00 sec)
 
-select * from Employees where name like 'a%';
+
+4)a) Select employees whose names start with ‘A’ using LIKE.
+ans)select * from Employees where name like 'a%';
 +-------+---------+------------+--------+
 | EmpID | name    | Department | Salary |
 +-------+---------+------------+--------+
@@ -60,7 +62,8 @@ select * from Employees where name like 'a%';
 +-------+---------+------------+--------+
 5 rows in set (0.00 sec)
 
-select Department,count(*) from Employees group by Department;
+b) Display the total number of employees in each department using GROUP BY.
+ans)select Department,count(*) from Employees group by Department;
 
 +------------+----------+
 | Department | count(*) |
@@ -71,7 +74,8 @@ select Department,count(*) from Employees group by Department;
 +------------+----------+
 3 rows in set (0.02 sec)
 
-select * from Employees order by Salary desc;
+c) Retrieve all employee details sorted by salary in descending order using ORDER BY.
+ans)select * from Employees order by Salary desc;
 +-------+---------+------------+--------+
 | EmpID | name    | Department | Salary |
 +-------+---------+------------+--------+
@@ -84,8 +88,9 @@ select * from Employees order by Salary desc;
 5 rows in set (0.00 sec)
 
 
-
-mysql> select Employees.name,Departments.DeptName,Departments.Location from Employees JOIN Departments on Employees.Department=Departments.DeptName;
+d) Fetch employee names, their departments, and department locations using JOIN.
+ans)
+   mysql> select Employees.name,Departments.DeptName,Departments.Location from Employees JOIN Departments on Employees.Department=Departments.DeptName;
 +---------+----------+----------+
 | name    | DeptName | Location |
 +---------+----------+----------+
@@ -97,7 +102,9 @@ mysql> select Employees.name,Departments.DeptName,Departments.Location from Empl
 +---------+----------+----------+
 5 rows in set (0.00 sec)
 
-select name from Employees where Salary> (select avg(Salary)from Employees);
+e) Find employees earning more than the average salary using a SUBQUERY.
+ans)
+  select name from Employees where Salary> (select avg(Salary)from Employees);
 +--------+
 | name   |
 +--------+
@@ -106,7 +113,8 @@ select name from Employees where Salary> (select avg(Salary)from Employees);
 +--------+
 2 rows in set (0.00 sec)
 
- create view v1 as select * from Employees where Salary>4000;
+f) Create a VIEW to display employees earning more than 55,000.
+ ans)create view v1 as select * from Employees where Salary>4000;
 Query OK, 0 rows affected (0.17 sec)
 
 mysql> select * from v1;
