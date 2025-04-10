@@ -1,0 +1,71 @@
+PL/SQL -TRIGGER
+
+1.Create a trigger to handle updates to the customer table. 
+
+ans)
+       CREATE TRIGGER UPCUSTOMER
+    -> AFTER UPDATE ON Customer
+    -> FOR EACH ROW
+    -> BEGIN
+    
+    ->     IF NOT EXISTS (SELECT 1 FROM cust WHERE id = OLD.id) THEN
+    ->         INSERT INTO cust (id, name, address, city, ph_no)
+    ->         VALUES (OLD.id, OLD.name, OLD.address, OLD.city, OLD.ph_no);
+    ->     END IF;
+    -> END//
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> UPDATE Customer
+    -> SET name = 'misse'
+    -> WHERE id = 10004;
+    -> //
+Query OK, 1 row affected (0.22 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+  
+select * from cust //
++-------+------+---------+---------+-------+
+| id    | name | address | city    | ph_no |
++-------+------+---------+---------+-------+
+|  1006 | ann  | an_nn   | tvm     |  2468 |
+| 10004 |misse | ash_a   | calicut |  4567 |
++-------+------+---------+---------+-------+
+2 rows in set (0.00 sec)
+
+
+2.Create a trigger to handle inserts to the product relation ( if price < 5 the set price to 10).
+
+
+ans) CREATE TRIGGER pcheck
+    -> BEFORE INSERT ON Product
+    -> FOR EACH ROW
+    -> BEGIN
+    ->     IF NEW.price < 5 THEN
+    ->         SET NEW.price = 10;
+    ->     END IF;
+    -> END//
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> select * from Product //
++-----+--------+-------+
+| pid | name   | price |
++-----+--------+-------+
+|   1 | pen    |    10 |
+|   2 | pencil |    20 |
+|   3 | soap   |    30 |
+|   4 | eraser |    15 |
++-----+--------+-------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
