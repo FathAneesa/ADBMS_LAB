@@ -1,0 +1,125 @@
+NoSQL - AGGREGATE FUNCTIONS AND REGULAR EXPRESSIONS
+
+1.Write a MongoDB query to sort customer details in ascending order of their name.
+
+ans)
+   INVOICE> db.CUSTOMER.find().sort({ name: 1 })
+[
+  {
+    _id: ObjectId('6809ffcc6dd3c75096ef634e'),
+    cust_id: '104',
+    name: 'Ameena',
+    address: 'aami_a',
+    city: 'kochi',
+    ph_no: '56789'
+  },
+  {
+    _id: ObjectId('6809ffcc6dd3c75096ef634b'),
+    cust_id: '100',
+    name: 'Aneesa',
+    address: 'aneesa_a',
+    city: 'kondotty',
+    ph_no: '12345'
+  },
+  {
+    _id: ObjectId('6809ffcc6dd3c75096ef634d'),
+    cust_id: '102',
+    name: 'Rashika',
+    address: 'rashi_r',
+    ph_no: '34567'
+  }
+]
+
+2.Write a MongoDB query to count number of customers in each city.
+
+ans)
+    INVOICE> db.CUSTOMER.aggregate([{ $group: { _id: "$city", TOTAL: { $sum: 1 } } }]);
+[
+  { _id: 'kondotty', TOTAL: 1 },
+  { _id: null, TOTAL: 1 },
+  { _id: 'kochi', TOTAL: 1 }
+]
+
+3.Write a MongoDB query to find minimum and maximum age in each city.
+
+ans)
+    INVOICE> db.CUSTOMER.aggregate([{ $group: { _id: "$city", min: { $min: "$age" }, max: { $max: "$age" } } }]);
+[
+  { _id: 'kondotty', min: 20, max: 20 },
+  { _id: null, min: 30, max: 30 },
+  { _id: 'kochi', min: 40, max: 40 }
+]
+
+4.Write a MongoDB query using the $match stage to retrieve all customer documents whose customer_name starts with the letter “S”.
+
+ans)
+   INVOICE> db.CUSTOMER.aggregate([{$match: { name: {$regex: "^S" $options: "i" }}]);
+
+[
+  {
+    _id: ObjectId('680a0ae56dd3c75096ef6353'),
+    cust_id: '106',
+    name: 'Sania',
+    address: 'sania_s',
+    city: 'Thrissur',
+    ph_no: '67890',
+    age: 25
+  }
+]
+
+5.Write a query using $lookup to join CUSTOMER and PRODUCT collections and display only customer name, product name, and price.
+
+ans)
+   INVOICE> 
+db.CUSTOMER.aggregate([
+...   { $lookup: {
+...       from: "PRODUCT",        // The collection we're joining with
+...       localField: "pid",      // Field from the CUSTOMER collection (pid)
+...       foreignField: "p_id",   // Field from the PRODUCT collection (p_id)
+...       as: "product_info"      // The name of the array where product info will be stored
+...     }
+...   },
+...   { $unwind: "$product_info" },   // Flatten the product_info array
+...   { $project: {
+...       _id: 0,                    // Exclude _id field
+...       name: 1,                  // Include customer name
+...       "product_info.pname": 1,   // Include product name
+...       "product_info.price": 1    // Include product price
+...     }
+...   }
+... ]);
+
+[
+  { name: 'Aneesa', product_info: { pname: 'pen', price: 100 } },
+  { name: 'Aneesa', product_info: { pname: 'pencil', price: 20 } },
+  { name: 'Aneesa', product_info: { pname: 'eraser', price: 45 } },
+  { name: 'Aneesa', product_info: { pname: 'sharpner', price: 25 } },
+  { name: 'Rashika', product_info: { pname: 'pen', price: 100 } },
+  { name: 'Rashika', product_info: { pname: 'pencil', price: 20 } },
+  { name: 'Rashika', product_info: { pname: 'eraser', price: 45 } },
+  { name: 'Rashika', product_info: { pname: 'sharpner', price: 25 } },
+  { name: 'Ameena', product_info: { pname: 'pen', price: 100 } },
+  { name: 'Ameena', product_info: { pname: 'pencil', price: 20 } },
+  { name: 'Ameena', product_info: { pname: 'eraser', price: 45 } },
+  { name: 'Ameena', product_info: { pname: 'sharpner', price: 25 } },
+  { name: 'Sania', product_info: { pname: 'pen', price: 100 } },
+  { name: 'Sania', product_info: { pname: 'pencil', price: 20 } },
+  { name: 'Sania', product_info: { pname: 'eraser', price: 45 } },
+  { name: 'Sania', product_info: { pname: 'sharpner', price: 25 } }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
