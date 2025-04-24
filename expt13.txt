@@ -1,0 +1,85 @@
+NoSQL- RETRIEVING DATA
+
+1.Write a MongoDB query to display the customer documents having city ‘ekm’,’tvm’. 
+
+ans)
+    INVOICE> db.CUSTOMER.find({city: {$in:["kondotty","kochi"]}})
+[
+  {
+    _id: ObjectId('6809ffcc6dd3c75096ef634b'),
+    cust_id: '100',
+    name: 'Aneesa',
+    address: 'aneesa_a',
+    city: 'kondotty',
+    ph_no: '12345'
+  },
+  {
+    _id: ObjectId('6809ffcc6dd3c75096ef634e'),
+    cust_id: '104',
+    name: 'Ameena',
+    address: 'aami_a',
+    city: 'kochi',
+    ph_no: '56789'
+  }
+]
+
+
+2.Write a MongoDB query to display all product documents their price >50.
+
+ans)
+    INVOICE> db.PRODUCT.find({price: {$gt:50}})
+[
+  {
+    _id: ObjectId('680a00c36dd3c75096ef634f'),
+    pid: 10,
+    pname: 'pen',
+    price: 100
+  }
+]
+
+
+3.Write a MongoDB query to find customer documents who not live in ‘tvm’.
+
+ans)
+    INVOICE> db.CUSTOMER.find({city:{$nin:["kochi"]}})
+[
+  {
+    _id: ObjectId('6809ffcc6dd3c75096ef634b'),
+    cust_id: '100',
+    name: 'Aneesa',
+    address: 'aneesa_a',
+    city: 'kondotty',
+    ph_no: '12345'
+  },
+  {
+    _id: ObjectId('6809ffcc6dd3c75096ef634d'),
+    cust_id: '102',
+    name: 'Rashika',
+    address: 'rashi_r',
+    ph_no: '34567'
+  }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
