@@ -1,0 +1,159 @@
+create table employee(ssn int primary key,ename varchar(10)not null,address varchar(10),ph varchar(10),dpt varchar(10) not null);
+desc employee;
+
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| ssn     | int         | NO   | PRI | NULL    |       |
+| ename   | varchar(10) | NO   |     | NULL    |       |
+| address | varchar(10) | YES  |     | NULL    |       |
+| ph      | varchar(10) | YES  |     | NULL    |       |
+| dpt     | varchar(10) | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+create table project(pid int primary key,pname varchar(10) not null,type varchar(10),clname varchar(10));
+desc project;
+
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| pid    | int         | NO   | PRI | NULL    |       |
+| pname  | varchar(10) | NO   |     | NULL    |       |
+| type   | varchar(10) | YES  |     | NULL    |       |
+| clname | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+create table mapping(ssn int,pid int,assdate date not null,foreign key (ssn) references  employee(ssn),foreign key(pid) references  project(pid));
+desc mapping;
+
++---------+------+------+-----+---------+-------+
+| Field   | Type | Null | Key | Default | Extra |
++---------+------+------+-----+---------+-------+
+| ssn     | int  | YES  | MUL | NULL    |       |
+| pid     | int  | YES  | MUL | NULL    |       |
+| assdate | date | NO   |     | NULL    |       |
++---------+------+------+-----+---------+-------+
+
+
+insert into employee values(10,'allen','hno123','12345','dep1'),(12,'smith','hno456','2345','dep1'),(13,'james','hno789','3456','dep2'),(14,'john','hno321','4567','dep3'),(15,'mar','hno563','5678','dep3');
+select * from employee;
+
++-----+-------+---------+-------+------+
+| ssn | ename | address | ph    | dpt  |
++-----+-------+---------+-------+------+
+|  10 | allen | hno123  | 12345 | dep1 |
+|  12 | smith | hno456  | 2345  | dep1 |
+|  13 | james | hno789  | 3456  | dep2 |
+|  14 | john  | hno321  | 4567  | dep3 |
+|  15 | mar   | hno563  | 5678  | dep3 |
++-----+-------+---------+-------+------+
+
+insert into project values(50,'bs','web','brik'),(52,'air','android','alen'),(53,'ebuk','cloud','alen'),(54,'sp','android','peter');
+select * from project;
+
+
++-----+-------+---------+--------+
+| pid | pname | type    | clname |
++-----+-------+---------+--------+
+|  50 | bs    | web     | brik   |
+|  52 | air   | android | alen   |
+|  53 | ebuk  | cloud   | alen   |
+|  54 | sp    | android | peter  |
++-----+-------+---------+--------+
+
+
+insert into mapping values(12,50,'2022-01-11'),(12,52,'2022-02-15'),(13,52,'2022-02-18'),(14,54,'2022-03-21'),(14,50,'2022-04-20');
+select * from mapping;
+
++------+------+------------+
+| ssn  | pid  | assdate    |
++------+------+------------+
+|   12 |   50 | 2022-01-11 |
+|   12 |   52 | 2022-02-15 |
+|   13 |   52 | 2022-02-18 |
+|   14 |   54 | 2022-03-21 |
+|   14 |   50 | 2022-04-20 |
++------+------+------------+
+
+select ename from employee where ename like '%a%' and ename like '%e%';
+
++-------+
+| ename |
++-------+
+| allen |
+| james |
++-------+
+
+
+select * from project order by type desc;
+
++-----+-------+---------+--------+
+| pid | pname | type    | clname |
++-----+-------+---------+--------+
+|  50 | bs    | web     | brik   |
+|  53 | ebuk  | cloud   | alen   |
+|  52 | air   | android | alen   |
+|  54 | sp    | android | peter  |
++-----+-------+---------+--------
+
+select dpt,count(*) from employee group by dpt having count(*)>1;
+
++------+----------+
+| dpt  | count(*) |
++------+----------+
+| dep1 |        2 |
+| dep3 |        2 |
++------+----------+
+
+select ssn,ename from employee  where ssn not in(select ssn from mapping);
+
++-----+-------+
+| ssn | ename |
++-----+-------+
+|  10 | allen |
+|  15 | mar   |
++-----+-------+
+
+
+select employee.ename,project.pname from employee join mapping on employee.ssn=mapping.ssn join project on mapping.pid=project.pid;
+
++-------+-------+
+| ename | pname |
++-------+-------+
+| smith | bs    |
+| john  | bs    |
+| smith | air   |
+| james | air   |
+| john  | sp    |
++-------+-------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
